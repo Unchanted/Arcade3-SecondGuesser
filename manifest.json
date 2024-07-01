@@ -1,18 +1,19 @@
 {
-    "name": "Second Guesser",
-    "version": "1",
-    "description": "A browser extension that second guesses your every move",
-    "permissions": ["activeTab", "storage"],
-    "backtround": {
-        "service_worker": "background.js"
-      }
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ],
-    "action": {
-      "default_popup": "popup.html",
+  "manifest_version": 3,
+  "name": "Second Guesser",
+  "version": "1.0",
+  "description": "An extension that second guesses your actions using hardcoded responses",
+  "permissions": ["activeTab", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
     }
+  ],
+  "action": {
+    "default_popup": "popup.html"
   }
+}
