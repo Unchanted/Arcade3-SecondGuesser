@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "name": "Second Guesser",
   "version": "1.0",
-  "description": "An extension that second guesses your actions using hardcoded responses",
-  "permissions": ["activeTab", "storage"],
+  "description": "An extension that second-guesses your every move.",
+  "permissions": ["activeTab"],
   "background": {
     "service_worker": "background.js"
   },
@@ -13,7 +13,5 @@
       "js": ["content.js"]
     }
   ],
-  "action": {
-    "default_popup": "popup.html"
-  }
+  "action": {}
 }
