@@ -1,5 +1,5 @@
 {
-  "manifest_version": 3,
+  "manifest_version": 2,
   "name": "Second Guesser",
   "version": "1.0",
   "description": "An extension that second guesses your actions using hardcoded responses",

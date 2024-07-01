@@ -13,9 +13,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       response = 'angrez ki aulaad hindi me likh';
     } else if (userEvent.type === 'play') {
       response = 'nanha munna rahi hu';
-    } else {
-    }
-
+    } 
     chrome.runtime.sendMessage({ action: 'action', data: response });
   }
 });
