@@ -35,30 +35,52 @@ const getRandomResponse = (category) => {
 };
 
 const secondGuess = (message) => {
+  console.log('Creating popup with message:', message);
   const popup = document.createElement('div');
   popup.style.cssText = `
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #f0f0f0;
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 20px;
     z-index: 9999;
     max-width: 300px;
     font-family: Arial, sans-serif;
     font-size: 14px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     border-radius: 5px;
+    text-align: center;
   `;
-  popup.textContent = message;
+
+  const messageElem = document.createElement('p');
+  messageElem.textContent = message;
+  
+  const closeButton = document.createElement('button');
+  closeButton.textContent = "Close";
+  closeButton.style.cssText = `
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+  `;
+  closeButton.addEventListener('click', () => {
+    console.log('Popup closed');
+    popup.remove();
+  });
+
+  popup.appendChild(messageElem);
+  popup.appendChild(closeButton);
+  
   document.body.appendChild(popup);
-  setTimeout(() => popup.remove(), 3000);
 };
 
 const notifyBackgroundScript = (category) => {
-  chrome.runtime.sendMessage({action: "secondGuess", category: category}, (response) => {
+  console.log('Notifying background script with category:', category);
+  chrome.runtime.sendMessage({ action: "secondGuess", category: category }, (response) => {
     if (chrome.runtime.lastError) {
-      console.error(chrome.runtime.lastError);
+      console.error('Error communicating with background script:', chrome.runtime.lastError);
     } else {
       console.log("Background script notified:", response);
     }
@@ -66,6 +88,7 @@ const notifyBackgroundScript = (category) => {
 };
 
 document.addEventListener('click', (event) => {
+  console.log('Click event detected on:', event.target.tagName);
   if (event.target.tagName === 'A') {
     const message = getRandomResponse('link');
     secondGuess(message);
@@ -74,6 +97,7 @@ document.addEventListener('click', (event) => {
 });
 
 document.addEventListener('input', (event) => {
+  console.log('Input event detected on:', event.target.tagName);
   if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
     const message = getRandomResponse('input');
     secondGuess(message);
@@ -82,6 +106,7 @@ document.addEventListener('input', (event) => {
 });
 
 document.addEventListener('play', (event) => {
+  console.log('Play event detected on:', event.target.tagName);
   if (event.target.tagName === 'VIDEO') {
     const message = getRandomResponse('video');
     secondGuess(message);
